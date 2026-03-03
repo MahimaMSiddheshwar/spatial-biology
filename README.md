@@ -15,8 +15,9 @@ This project performs a comprehensive **spatial transcriptomics analysis** of hu
 
 Unlike bulk RNA-seq, spatial transcriptomics reveals *where* genes are expressed — distinguishing tumor cores from invasive margins, stromal regions, and immune infiltrates — all within a single tissue section.
 
-***Project***: https://spatial-biology.vercel.app/
 ---
+
+***Project***: *https://spatial-biology.vercel.app/*
 
 ## Dataset
 
