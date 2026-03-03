@@ -19,6 +19,8 @@ Unlike bulk RNA-seq, spatial transcriptomics reveals *where* genes are expressed
 
 ***Project***: *https://spatial-biology.vercel.app/*
 
+---
+
 ## Dataset
 
 | Field | Details |
