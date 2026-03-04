@@ -53,13 +53,14 @@ Unlike bulk RNA-seq, spatial transcriptomics reveals *where* genes are expressed
 ## Analysis Pipeline
 
 ```
-01_Data_Setup.ipynb          → Download, extract, load AnnData
-02_QC_Preprocessing.ipynb    → Filter, normalize, HVG, PCA, UMAP
-03_Clustering.ipynb          → Leiden clustering, marker genes, annotation
-04_Spatial_Analysis.ipynb    → Moran's I SVGs, neighborhood enrichment, co-occurrence
-05_Deconvolution.ipynb       → Cell2Location cell type deconvolution  [coming soon]
-06_CellComm.ipynb            → LIANA+ ligand-receptor interactions     [coming soon]
-07_Advanced.ipynb            → PAM50 scoring, PROGENy pathways         [coming soon]
+01_Data_Setup.ipynb              → Download, extract, load AnnData
+02_QC_Preprocessing.ipynb        → Filter, normalize, HVG, PCA, UMAP
+03_Clustering.ipynb              → Leiden clustering, marker genes, annotation
+04_Spatial_Analysis.ipynb        → Moran's I SVGs, neighborhood enrichment, co-occurrence
+05_Gene Signature Scoring.ipynb  → Gene Signature scoring to estimate the cell type  
+06_CellComm.ipynb                → LIANA+ ligand-receptor interactions     
+07_Advanced.ipynb                → PAM50 scoring, PROGENy pathways
+   
 ```
 
 ---
@@ -98,9 +99,9 @@ spatial-transcriptomics-breast-cancer/
 │   ├── 02_QC_Preprocessing.ipynb
 │   ├── 03_Clustering.ipynb
 │   ├── 04_Spatial_Analysis.ipynb
-│   ├── 05_Deconvolution.ipynb         [coming soon]
-│   ├── 06_CellComm.ipynb              [coming soon]
-│   └── 07_Advanced.ipynb              [coming soon]
+│   ├── 05_Gene Signature Scoring.ipynb         
+│   ├── 06_CellComm.ipynb             
+│   └── 07_Advanced.ipynb             
 │
 ├── README.md
 └── requirements.txt
