@@ -1,0 +1,48 @@
+The Big Picture First
+
+What is this project?
+Imagine you have a piece of breast cancer tissue under a microscope. You can see different regions — dense tumor nests, surrounding connective tissue, scattered immune cells. Traditional RNA sequencing would grind up that entire tissue into a liquid and measure gene activity — but in doing so, you completely lose the information about where each gene was being expressed.
+Spatial transcriptomics solves this. The 10x Genomics Visium platform places a grid of ~5,000 tiny capture spots directly underneath the tissue. Each spot is 55 micrometers wide — about the size of 8 cells — and captures the RNA from whatever cells sit on top of it, while preserving the exact XY coordinates. So instead of one average expression profile for the whole tumor, you get 4,869 individual expression profiles, each with a known location on the tissue map.
+The biological question driving everything: How is the breast cancer tumor microenvironment spatially organized, and what does that spatial organization tell us about why immune cells can't kill the tumor?
+
+
+--------------
+
+Notebook by Notebook
+
+Notebook 01 — Data Setup
+What it does: Downloads the raw data from 10x Genomics and loads it into a data structure called AnnData.
+Why AnnData: Think of it as a spreadsheet with superpowers. Rows are spots (4,869), columns are genes (36,601), and it can also store images, coordinates, and analysis results all in one place. Every subsequent notebook reads and adds to this same object.
+The data downloaded:
+
+The gene expression matrix (how much of each gene is in each spot)
+The tissue image (the H&E stained photograph of the actual tissue)
+The spatial coordinates (where each spot sits on the tissue)
+
+
+
+---------------
+
+Notebook 02 — Quality Control & Preprocessing
+
+What it does: Cleans the data before any analysis. Think of it like washing vegetables before cooking.
+Why QC matters: Not every spot is a healthy, well-captured spot. Some spots capture dying cells. Some capture blood contamination. Some just didn't get enough RNA. If you analyze these dirty spots, your results reflect technical problems, not biology.
+
+Three QC metrics calculated:
+Mitochondrial genes (MT%) — When a cell is dying or damaged, its cytoplasm leaks out but the mitochondria stay behind. So if a spot has >15% mitochondrial gene expression, those cells were probably dying during tissue collection. We removed spots with MT% > 15%.
+Ribosomal genes (Ribo%) — Ribosomes make proteins. Having ~15% ribosomal expression is normal and healthy — it means the cells were actively making proteins when captured.
+Hemoglobin genes (HB%) — Blood contamination from the tissue slicing process. Yours was 0.01% — essentially zero. This confirms the tissue preparation was pristine.
+
+After QC: 4,898 spots → 4,869 spots (only 29 removed — excellent data quality).
+
+Normalization: Each spot captures a different amount of total RNA depending on how many cells landed on it and how deeply it was sequenced. Normalization makes all spots comparable by scaling them to the same total count (10,000). Then log transformation compresses extreme values so one very highly expressed gene doesn't dominate the analysis.
+
+HVG Selection (Highly Variable Genes): Of 21,349 genes, only 3,000 are selected for clustering. Why? Most genes are either not expressed or expressed at the same level everywhere — they carry no information about differences between spots. The Seurat v3 algorithm finds genes that vary more than you'd expect by chance, which are the ones actually distinguishing tumor from stroma from immune cells.
+
+PCA (Principal Component Analysis): Reduces 3,000 gene dimensions down to 50 summary dimensions. Imagine 3,000 genes as 3,000 axes — PCA finds the directions of maximum variation and summarizes them into 50 composite axes called principal components.
+
+
+
+
+
+-------------
