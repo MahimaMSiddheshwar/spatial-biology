@@ -245,7 +245,7 @@ A Visium hexagonal spatial neighbors graph (6 neighbors) was constructed. Moran'
 ## Author
 
 **Mahima M Siddheshwar**
-- Data Scientist & Computational Biologist
+- Data Scientist | Computational Biologist | Bioinformatician
 
 ---
 
