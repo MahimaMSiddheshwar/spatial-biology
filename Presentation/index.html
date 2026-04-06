@@ -91,7 +91,7 @@ section:first-of-type{border-top:none;}
 .fig-wrapper{background:var(--white);border:1px solid var(--rule);overflow:hidden;box-shadow:var(--shadow);}
 .fig-img-slot{width:100%;min-height:260px;display:flex;align-items:center;justify-content:center;background:var(--bg2);position:relative;overflow:hidden;}
 .fig-img-slot img{width:100%;height:100%;object-fit:contain;display:block;}
-.fig-placeholder{display:flex;flex-direction:column;align-items:center;gap:10px;padding:32px;text-align:center;width:100%;}
+.fig-placeholder{display:flex;flex-direction:column;align-items:center;gap:10px;padding:32px;text-align:center;width:100%;background:#f8f8f8;min-height:200px;}
 .fig-placeholder-icon{width:52px;height:52px;border:1px dashed var(--rule2);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--ink3);}
 .fig-placeholder-text{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--ink3);letter-spacing:.08em;line-height:1.8;}
 .fig-placeholder-file{font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:var(--teal);background:var(--teal-lt);padding:4px 10px;margin-top:6px;display:inline-block;}
@@ -149,11 +149,11 @@ section:first-of-type{border-top:none;}
 .hr{height:1px;background:var(--rule);margin:40px 0;}
 
 /* CLUSTER TABLE */
-.cluster-row{display:grid;grid-template-columns:80px 1fr 90px 90px;gap:0;border-bottom:1px solid var(--rule);transition:background .15s;}
+.cluster-row{display:grid;grid-template-columns:80px 1fr 80px 110px;gap:0;border-bottom:1px solid var(--rule);transition:background .15s;}
 .cluster-row:hover{background:var(--bg2);}
 .cluster-row:last-child{border-bottom:none;}
 .cr-cell{padding:11px 14px;font-size:.84rem;color:var(--ink2);display:flex;align-items:center;}
-.cr-badge{font-family:'IBM Plex Mono',monospace;font-size:8.5px;padding:3px 8px;font-weight:500;}
+.cr-badge{font-family:'IBM Plex Mono',monospace;font-size:8px;padding:3px 8px;font-weight:500;white-space:normal;text-align:center;}
 
 /* ANIMATIONS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
@@ -248,12 +248,12 @@ section:first-of-type{border-top:none;}
     <div class="card reveal" style="background:var(--navy-lt);border-left:3px solid var(--navy);">
       <div class="card-num" style="color:var(--navy);">Research Objectives</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px;">
-        <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O1 →</span> Identify 11 transcriptionally distinct spatial TME domains via Leiden clustering</div>
-        <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O2 →</span> Detect 2,493 spatially variable genes using Moran's I spatial autocorrelation</div>
-        <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O3 →</span> Score 24 cell type signatures per spot from Wu et al. 2021 scRNA-seq atlas</div>
-        <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O4 →</span> Detect Tertiary Lymphoid Structure by 3 independent analytical methods</div>
-        <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O5 →</span> Map the dual immunosuppressive barrier spatially (LAG3 + TGFβ1/TGFβ2)</div>
-        <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O6 →</span> Confirm ER+ Luminal A subtype via PAM50 and PROGENy pathway scoring</div>
+        <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O1 →</span> Identify 11 transcriptionally distinct spatial TME domains using Leiden clustering</div>
+        <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O2 →</span> Detect 2,493 spatially variable genes via Moran's I spatial autocorrelation</div>
+        <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O3 →</span> Score 24 cell type signatures per spot using Wu et al. 2021 scRNA-seq atlas</div>
+        <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O4 →</span> Detect Tertiary Lymphoid Structures using 3 independent analytical methods</div>
+        <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O5 →</span> Spatially map the dual immunosuppressive barrier (ECM + checkpoint signaling)</div>
+        <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O6 →</span> Confirm ER+ Luminal A subtype via PAM50 subtyping and PROGENy pathway scoring</div>
       </div>
     </div>
 
@@ -486,7 +486,7 @@ section:first-of-type{border-top:none;}
         <div class="cr-cell"><span class="cr-badge" style="background:var(--rust-lt);color:var(--rust);">C6</span></div>
         <div class="cr-cell" style="flex-direction:column;align-items:flex-start;gap:2px;"><strong>ER+ Invasive Carcinoma (GATA3+)</strong><span style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--ink3);">SLC39A6, TMEM150C, TNFSF10, BAMBI</span></div>
         <div class="cr-cell">401</div>
-        <div class="cr-cell"><span class="cr-badge" style="background:var(--rust-lt);color:var(--rust);">TUMOUR CORE</span></div>
+        <div class="cr-cell"><span class="cr-badge" style="background:var(--rust-lt);color:var(--rust);">TUMOR</span></div>
       </div>
       <div class="cluster-row">
         <div class="cr-cell"><span class="cr-badge" style="background:var(--teal-lt);color:var(--teal);">C7</span></div>
