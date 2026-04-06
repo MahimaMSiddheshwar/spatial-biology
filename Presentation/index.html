@@ -219,7 +219,7 @@ section:first-of-type{border-top:none;}
         <div class="hs-item"><div class="hs-num">4,869</div><div class="hs-lbl">Tissue Spots</div></div>
         <div class="hs-item"><div class="hs-num">21,349</div><div class="hs-lbl">Genes Retained</div></div>
         <div class="hs-item"><div class="hs-num">11</div><div class="hs-lbl">TME Clusters</div></div>
-        <div class="hs-item"><div class="hs-num">2,498</div><div class="hs-lbl">Spatially Variable Genes</div></div>
+        <div class="hs-item"><div class="hs-num">2,493</div><div class="hs-lbl">Significant SVGs</div></div>
       </div>
     </div>
   </div>
@@ -249,10 +249,10 @@ section:first-of-type{border-top:none;}
       <div class="card-num" style="color:var(--navy);">Research Objectives</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px;">
         <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O1 →</span> Identify 11 transcriptionally distinct spatial TME domains via Leiden clustering</div>
-        <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O2 →</span> Detect 2,498 spatially variable genes using Moran's I spatial autocorrelation</div>
+        <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O2 →</span> Detect 2,493 spatially variable genes using Moran's I spatial autocorrelation</div>
         <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O3 →</span> Score 24 cell type signatures per spot from Wu et al. 2021 scRNA-seq atlas</div>
         <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O4 →</span> Detect Tertiary Lymphoid Structure by 3 independent analytical methods</div>
-        <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O5 →</span> Map the dual PD-L1 + TGF-β immunosuppressive barrier spatially</div>
+        <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O5 →</span> Map the dual immunosuppressive barrier spatially (LAG3 + TGFβ1/TGFβ2)</div>
         <div style="font-size:.87rem;color:var(--ink2);line-height:1.75;"><span style="color:var(--teal);font-weight:500;">O6 →</span> Confirm ER+ Luminal A subtype via PAM50 and PROGENy pathway scoring</div>
       </div>
     </div>
@@ -320,13 +320,13 @@ section:first-of-type{border-top:none;}
             <img src="figures/spatial/02_spatial_qc.png" alt="Spatial QC Map" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
             <div class="fig-placeholder" style="display:none;">
               <div class="fig-placeholder-icon">🔬</div>
-              <div class="fig-placeholder-text">H&amp;E tissue with Visium spot grid overlay<br>Spots coloured by QC metrics</div>
+              <div class="fig-placeholder-text">H&E tissue with Visium spot grid overlay<br>Spots coloured by QC metrics</div>
               <div class="fig-placeholder-file">figures/spatial/02_spatial_qc.png</div>
             </div>
           </div>
           <div class="fig-meta">
             <div class="fig-label">Figure — Dataset Overview</div>
-            <div class="fig-caption">Visium spot array overlaid on H&amp;E stained breast cancer tissue section. Each 55µm spot captures ~8 cells with full transcriptome profiling. Spots coloured by total UMI count, revealing the distinct tumour nests (high expression) and stromal regions.</div>
+            <div class="fig-caption">Visium spot array overlaid on H&E stained breast cancer tissue section. Each 55µm spot captures ~8 cells with full transcriptome profiling. Spots coloured by total UMI count, revealing the distinct tumour nests (high expression) and stromal regions.</div>
           </div>
         </div>
       </div>
@@ -358,7 +358,7 @@ section:first-of-type{border-top:none;}
         </div>
         <div class="method-card" style="--step-c:var(--navy)">
           <div class="mc-header"><div class="mc-num">3</div><div class="mc-title">log1p Transformation</div></div>
-          <div class="mc-body">Natural log(x+1) transformation applied. Compresses the dynamic range of highly expressed genes (e.g. MGP scoring 15,000 vs IGLC2 scoring 3,000). Without this, PCA would be completely dominated by the highest-expressed genes, obscuring the biologically meaningful variation in moderately expressed genes.</div>
+          <div class="mc-body">Natural ln(x+1) transformation applied. Compresses the dynamic range of highly expressed genes. Without this, PCA would be completely dominated by the highest-expressed genes, obscuring the biologically meaningful variation in moderately expressed genes.</div>
           <div class="mc-result">X range after: min 0.000, max 7.975 — log-normal distribution confirmed</div>
         </div>
         <div class="method-card" style="--step-c:var(--navy)">
@@ -374,7 +374,7 @@ section:first-of-type{border-top:none;}
         </div>
         <div class="method-card" style="--step-c:var(--rust)">
           <div class="mc-header"><div class="mc-num">6</div><div class="mc-title">PCA → kNN Graph → UMAP → Leiden</div></div>
-          <div class="mc-body">PCA computed (50 components). Top 30 PCs selected from elbow plot — explaining 16.9% of variance (normal for spatial transcriptomics). kNN graph built (k=15, 30 PCs). UMAP embedding for visualisation. Leiden clustering tested at resolutions 0.3, 0.5, 0.6, 1.0 — resolution 0.5 selected (11 clusters, validated by H&amp;E overlay).</div>
+          <div class="mc-body">PCA computed (50 components). Top 30 PCs selected from elbow plot — explaining 16.9% of variance (normal for spatial transcriptomics). kNN graph built (k=15, 30 PCs). UMAP embedding for visualisation. Leiden clustering tested at resolutions 0.3, 0.5, 0.6, 1.0 — resolution 0.5 selected (11 clusters, validated by H&E overlay).</div>
           <div class="mc-result">kNN graph: 28,578 non-zero connections across 4,869 spots · UMAP stored in adata.obsm['X_umap']</div>
         </div>
       </div>
@@ -383,11 +383,11 @@ section:first-of-type{border-top:none;}
       <div style="display:flex;flex-direction:column;gap:20px;">
         <div class="fig-wrapper">
           <div class="fig-img-slot" style="min-height:220px;">
-            <img src="figures/qc/violin_01_qc_violin_before_filter.png" alt="QC Violin Before" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <img src="figures/qc/violin_01_qc_violin_before filter.png" alt="QC Violin Before" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
             <div class="fig-placeholder" style="display:none;">
               <div class="fig-placeholder-icon">📊</div>
               <div class="fig-placeholder-text">QC Violin Plot — Before Filtering<br>total_counts · n_genes_by_counts · pct_mt</div>
-              <div class="fig-placeholder-file">figures/qc/violin_01_qc_violin_before_filter.png</div>
+              <div class="fig-placeholder-file">figures/qc/violin_01_qc_violin_before filter.png</div>
             </div>
           </div>
           <div class="fig-meta">
@@ -397,16 +397,16 @@ section:first-of-type{border-top:none;}
         </div>
         <div class="fig-wrapper">
           <div class="fig-img-slot" style="min-height:220px;">
-            <img src="figures/qc/violin_01_qc_violin_after_filter.png" alt="QC Violin After" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <img src="figures/qc/violin_01_qc_violin_after filter.png" alt="QC Violin After" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
             <div class="fig-placeholder" style="display:none;">
               <div class="fig-placeholder-icon">📊</div>
               <div class="fig-placeholder-text">QC Violin Plot — After Filtering<br>99.4% spot retention confirmed</div>
-              <div class="fig-placeholder-file">figures/qc/violin_01_qc_violin_after_filter.png</div>
+              <div class="fig-placeholder-file">figures/qc/violin_01_qc_violin_after filter.png</div>
             </div>
           </div>
           <div class="fig-meta">
             <div class="fig-label">Figure NB02.2 — QC After Filtering</div>
-            <div class="fig-caption">Post-filtering distributions confirming removal of low-quality spots. Only 29 of 4,898 spots removed (99.4% retention).</div>
+            <div class="fig-caption">Post-filtering distributions confirming removal of low quality spots. Only 29 of 4,898 spots removed (99.4% retention).</div>
           </div>
         </div>
         <div class="fig-wrapper">
@@ -534,13 +534,13 @@ section:first-of-type{border-top:none;}
           <img src="figures/spatial/08_spatial_annotated_pub.png" alt="Spatial Annotated" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="fig-placeholder" style="display:none;">
             <div class="fig-placeholder-icon">🔬</div>
-            <div class="fig-placeholder-text">Annotated Spatial Map on H&amp;E tissue<br>Same colours as UMAP</div>
+            <div class="fig-placeholder-text">Annotated Spatial Map on H&E tissue<br>Same colours as UMAP</div>
             <div class="fig-placeholder-file">figures/spatial/08_spatial_annotated_pub.png</div>
           </div>
         </div>
         <div class="fig-meta">
           <div class="fig-label">Figure NB03.2 — Annotated Spatial Map</div>
-          <div class="fig-caption">The 11 clusters mapped to their exact tissue positions on the H&amp;E section. Plasma Cells/TLS (C0) form a concentrated upper-left perivascular zone. ER+ carcinoma (C6) is visible as discrete tumour nests surrounded by stromal barrier (C4).</div>
+          <div class="fig-caption">The 11 clusters mapped to their exact tissue positions on the H&E section. Plasma Cells/TLS (C0) form a concentrated upper-left perivascular zone. ER+ carcinoma (C6) is visible as discrete tumour nests surrounded by stromal barrier (C4).</div>
         </div>
       </div>
     </div>
@@ -548,11 +548,11 @@ section:first-of-type{border-top:none;}
     <div class="g2 reveal">
       <div class="fig-wrapper">
         <div class="fig-img-slot" style="min-height:260px;">
-          <img src="figures/markers/dotplot_04_dotplot_markers.png" alt="Marker Dot Plot" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <img src="figures/markers/dotplot__04_dotplot_markers.png" alt="Marker Dot Plot" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="fig-placeholder" style="display:none;">
             <div class="fig-placeholder-icon">📍</div>
             <div class="fig-placeholder-text">Marker Gene Dot Plot<br>Dot size = % spots expressing · Colour = mean expression</div>
-            <div class="fig-placeholder-file">figures/markers/dotplot_04_dotplot_markers.png</div>
+            <div class="fig-placeholder-file">figures/markers/dotplot__04_dotplot_markers.png</div>
           </div>
         </div>
         <div class="fig-meta">
@@ -587,11 +587,11 @@ section:first-of-type{border-top:none;}
   <div class="container">
     <div class="sec-eyebrow">NB04 · Spatial Analysis</div>
     <h2 class="sec-title reveal">Moran's I, Neighbourhood Enrichment<br><em>& Spatially Variable Genes</em></h2>
-    <p class="sec-desc reveal">For each of 3,000 HVGs: does high expression concentrate in specific tissue regions, or is it randomly scattered? Moran's I answers this — 2,498 genes are significantly non-random (FDR &lt; 0.05).</p>
+    <p class="sec-desc reveal">For each of 3,000 HVGs: does high expression concentrate in specific tissue regions, or is it randomly scattered? Moran's I answers this — 2,493 genes are significantly non-random (FDR &lt; 0.05).</p>
 
     <div class="g4 reveal" style="margin-bottom:32px;">
       <div class="stat-block"><div class="sb-num" style="color:var(--teal)">3,000</div><div class="sb-lbl">Genes Tested</div></div>
-      <div class="stat-block"><div class="sb-num" style="color:var(--navy)">2,498</div><div class="sb-lbl">Significant SVGs (FDR&lt;0.05)</div></div>
+      <div class="stat-block"><div class="sb-num" style="color:var(--navy)">2,493</div><div class="sb-lbl">Significant SVGs (FDR&lt;0.05)</div></div>
       <div class="stat-block"><div class="sb-num" style="color:var(--rust)">0.876</div><div class="sb-lbl">Top Moran's I (MGP)</div></div>
       <div class="stat-block"><div class="sb-num" style="color:var(--plum)">100</div><div class="sb-lbl">Permutations per Gene</div></div>
     </div>
@@ -610,7 +610,7 @@ section:first-of-type{border-top:none;}
         <tbody>
           <tr><td>1</td><td><strong>MGP</strong></td><td>0.876</td><td>0.0126</td><td>Stromal Barrier</td><td>Matrix Gla Protein — fibrous stroma scaffold, #1 SVG</td></tr>
           <tr style="background:var(--teal-lt)"><td>2</td><td><strong style="color:var(--teal)">IGLC2</strong></td><td>0.815</td><td>0.0126</td><td style="color:var(--teal);font-weight:500;">Plasma Cells / TLS</td><td>Immunoglobulin Lambda C2 — plasma cell, <strong>TLS signal #1</strong></td></tr>
-          <tr><td>3</td><td><strong>COX6C</strong></td><td>0.803</td><td>0.0126</td><td>Metabolically Active Stroma</td><td>Cytochrome C Oxidase subunit — high metabolic tumour spots</td></tr>
+          <tr><td>3</td><td><strong>COX6C</strong></td><td>0.803</td><td>0.0126</td><td>Metabolically Active Stroma</td><td>Cytochrome C Oxidase subunit — high metabolic activity</td></tr>
           <tr style="background:var(--teal-lt)"><td>4</td><td><strong style="color:var(--teal)">IGHG3</strong></td><td>0.793</td><td>0.0126</td><td style="color:var(--teal);font-weight:500;">Plasma Cells / TLS</td><td>Immunoglobulin Heavy G3 — plasma cell, <strong>TLS signal #2</strong></td></tr>
           <tr><td>5</td><td><strong>CXCL14</strong></td><td>0.786</td><td>0.0126</td><td>Tumour-Stroma</td><td>CXC Chemokine Ligand 14 — stromal chemokine signalling</td></tr>
           <tr style="background:var(--teal-lt)"><td>6</td><td><strong style="color:var(--teal)">IGKC</strong></td><td>0.773</td><td>0.0126</td><td style="color:var(--teal);font-weight:500;">Plasma Cells / TLS</td><td>Immunoglobulin Kappa C — plasma cell, <strong>TLS signal #3</strong></td></tr>
@@ -618,11 +618,11 @@ section:first-of-type{border-top:none;}
           <tr><td>8</td><td><strong>KRT8</strong></td><td>0.739</td><td>0.0126</td><td>Proliferating Tumour</td><td>Cytokeratin 8 — luminal epithelial structural protein</td></tr>
           <tr><td>9</td><td><strong>IGHG4</strong></td><td>0.739</td><td>0.0126</td><td>Plasma Cells / TLS</td><td>Immunoglobulin Heavy G4 — plasma cell marker</td></tr>
           <tr><td>10</td><td><strong>SCGB2A2</strong></td><td>0.731</td><td>0.0126</td><td>Luminal Epithelium</td><td>Mammaglobin B — breast-specific luminal marker</td></tr>
-          <tr><td>11</td><td><strong>MT-ND1</strong></td><td>0.719</td><td>0.0126</td><td>Stroma</td><td>Mitochondrial NADH dehydrogenase — metabolic hotspot</td></tr>
+          <tr><td>11</td><td><strong>MT-ND1</strong></td><td>0.719</td><td>0.0126</td><td>Stroma</td><td>Mitochondrial NADH dehydrogenase — metabolic activity</td></tr>
           <tr><td>12</td><td><strong>S100G</strong></td><td>0.713</td><td>0.0126</td><td>Luminal Epithelium</td><td>S100 calcium binding protein — breast epithelial</td></tr>
-          <tr><td>13</td><td><strong>MUC1</strong></td><td>0.684</td><td>0.0126</td><td>Proliferating Tumour</td><td>Mucin 1 — tumour-associated glycoprotein, C1 top marker</td></tr>
+          <tr><td>13</td><td><strong>MUC1</strong></td><td>0.684</td><td>0.0126</td><td>Proliferating Tumour</td><td>Mucin 1 — tumour-associated glycoprotein</td></tr>
           <tr><td>14</td><td><strong>MT-CO1</strong></td><td>0.683</td><td>0.0126</td><td>Stroma</td><td>Mitochondrial Cytochrome C Oxidase — metabolic activity</td></tr>
-          <tr><td>15</td><td><strong>CRISP3</strong></td><td>0.681</td><td>0.0126</td><td>Secretory Epithelium</td><td>Cysteine Rich Secretory Protein 3 — C9 top marker</td></tr>
+          <tr><td>15</td><td><strong>CRISP3</strong></td><td>0.681</td><td>0.0126</td><td>Secretory Epithelium</td><td>Cysteine Rich Secretory Protein 3 — secretory marker</td></tr>
         </tbody>
       </table>
     </div>
@@ -643,16 +643,16 @@ section:first-of-type{border-top:none;}
         </div>
         <div class="fig-meta">
           <div class="fig-label">Figure NB04.1 — Moran's I Distribution & Significance</div>
-          <div class="fig-caption">Left: histogram of Moran's I values across 3,000 tested genes — most genes cluster near 0 (random), with a long right tail of truly spatially clustered genes. Right: I vs −log₁₀(FDR) scatter showing 2,498 significant SVGs above the threshold line.</div>
+          <div class="fig-caption">Left: histogram of Moran's I values across 3,000 tested genes — most genes cluster near 0 (random), with a long right tail of truly spatially clustered genes. Right: I vs −log₁₀(FDR) scatter showing 2,493 significant SVGs above the threshold line.</div>
         </div>
       </div>
       <div class="fig-wrapper">
         <div class="fig-img-slot" style="min-height:300px;">
-          <img src="figures/svg/01_top_svgs_spatial.png" alt="Top SVGs Spatial" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <img src="figures/svg/_01_top_svgs_spatial.png" alt="Top SVGs Spatial" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="fig-placeholder" style="display:none;">
             <div class="fig-placeholder-icon">🗺️</div>
             <div class="fig-placeholder-text">Top 8 SVGs mapped on tissue (2×4 grid)<br>Each panel: one gene, colour = expression</div>
-            <div class="fig-placeholder-file">figures/svg/01_top_svgs_spatial.png</div>
+            <div class="fig-placeholder-file">figures/svg/_01_top_svgs_spatial.png</div>
           </div>
         </div>
         <div class="fig-meta">
@@ -679,16 +679,16 @@ section:first-of-type{border-top:none;}
       </div>
       <div class="fig-wrapper">
         <div class="fig-img-slot" style="min-height:280px;">
-          <img src="figures/neighborhood/05_ripley_L.png" alt="Ripley's L" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <img src="figures/neighborhood/_05_ripley_L.png" alt="Ripley's L" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="fig-placeholder" style="display:none;">
             <div class="fig-placeholder-icon">📊</div>
             <div class="fig-placeholder-text">Ripley's L Statistic — 11 clusters<br>L &gt; 0 = clustered · L ≈ 0 = random</div>
-            <div class="fig-placeholder-file">figures/neighborhood/05_ripley_L.png</div>
+            <div class="fig-placeholder-file">figures/neighborhood/_05_ripley_L.png</div>
           </div>
         </div>
         <div class="fig-meta">
           <div class="fig-label">Figure NB04.4 — Ripley's L Spatial Clustering</div>
-          <div class="fig-caption">All 11 cell types show L &gt; 0 — confirming every cluster is more spatially concentrated than random. Proliferating Luminal Tumour and Plasma Cells/TLS show highest L values (~1,800), confirming dense spatial organisation.</div>
+          <div class="fig-caption">All 11 cell types show L &gt; 0 — confirming every cluster is more spatially concentrated than random. Proliferating Luminal Tumour and Plasma Cells/TLS show highest L values, confirming dense spatial organisation.</div>
         </div>
       </div>
     </div>
@@ -705,7 +705,7 @@ section:first-of-type{border-top:none;}
     <div class="g3 reveal" style="margin-bottom:28px;">
       <div class="stat-block"><div class="sb-num" style="color:var(--teal)">24</div><div class="sb-lbl">Signatures Scored</div></div>
       <div class="stat-block"><div class="sb-num" style="color:var(--navy)">100%</div><div class="sb-lbl">Gene Availability (all sigs)</div></div>
-      <div class="stat-block"><div class="sb-num" style="color:var(--rust)">20.9</div><div class="sb-lbl">Plasma Cell Peak Score</div></div>
+      <div class="stat-block"><div class="sb-num" style="color:var(--rust)">2.34</div><div class="sb-lbl">Plasma Cell Peak Score</div></div>
     </div>
 
     <!-- Immune exclusion key finding -->
@@ -716,11 +716,11 @@ section:first-of-type{border-top:none;}
     <div class="g2 reveal" style="margin-top:28px;">
       <div class="fig-wrapper">
         <div class="fig-img-slot" style="min-height:340px;">
-          <img src="figures/gene_signature/06_signature_heatmap_pub.png" alt="Signature Heatmap" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <img src="figures/gene%20signature/06_signature_heatmap_pub.png" alt="Signature Heatmap" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="fig-placeholder" style="display:none;">
             <div class="fig-placeholder-icon">🔥</div>
             <div class="fig-placeholder-text">24-Signature Heatmap (normalised 0–1)<br>Rows = signatures · Columns = 11 clusters</div>
-            <div class="fig-placeholder-file">figures/gene_signature/06_signature_heatmap_pub.png</div>
+            <div class="fig-placeholder-file">figures/gene signature/06_signature_heatmap_pub.png</div>
           </div>
         </div>
         <div class="fig-meta">
@@ -731,11 +731,11 @@ section:first-of-type{border-top:none;}
       <div style="display:flex;flex-direction:column;gap:20px;">
         <div class="fig-wrapper">
           <div class="fig-img-slot" style="min-height:200px;">
-            <img src="figures/gene_signature/02_immune_scores.png" alt="Immune Scores" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <img src="figures/gene%20signature/02_immune_scores.png" alt="Immune Scores" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
             <div class="fig-placeholder" style="display:none;">
               <div class="fig-placeholder-icon">🛡️</div>
               <div class="fig-placeholder-text">Immune cell type scores on tissue<br>T cells · CD8 · CD4 · B cells · Plasma · NK</div>
-              <div class="fig-placeholder-file">figures/gene_signature/02_immune_scores.png</div>
+              <div class="fig-placeholder-file">figures/gene signature/02_immune_scores.png</div>
             </div>
           </div>
           <div class="fig-meta">
@@ -745,16 +745,16 @@ section:first-of-type{border-top:none;}
         </div>
         <div class="fig-wrapper">
           <div class="fig-img-slot" style="min-height:200px;">
-            <img src="figures/gene_signature/04_TLS_signature.png" alt="TLS Signature" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <img src="figures/gene%20signature/04_TLS_signature.png" alt="TLS Signature" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
             <div class="fig-placeholder" style="display:none;">
               <div class="fig-placeholder-icon">⭐</div>
               <div class="fig-placeholder-text">TLS signature · Plasma cells · B cells · CD8<br>Second independent TLS confirmation</div>
-              <div class="fig-placeholder-file">figures/gene_signature/04_TLS_signature.png</div>
+              <div class="fig-placeholder-file">figures/gene signature/04_TLS_signature.png</div>
             </div>
           </div>
           <div class="fig-meta">
             <div class="fig-label">Figure NB05.3 — TLS Confirmation</div>
-            <div class="fig-caption">TLS signature, plasma cells (score 20.9), and B cells all co-enriched in the same upper-left perivascular zone. Second independent confirmation of the TLS — matching Moran's I evidence from NB04.</div>
+            <div class="fig-caption">TLS signature, plasma cells, and B cells all co-enriched in the same upper-left perivascular zone. Second independent confirmation of the TLS — matching Moran's I evidence from NB04.</div>
           </div>
         </div>
       </div>
@@ -763,25 +763,25 @@ section:first-of-type{border-top:none;}
     <div class="g2 reveal" style="margin-top:20px;">
       <div class="fig-wrapper">
         <div class="fig-img-slot" style="min-height:260px;">
-          <img src="figures/gene_signature/01_tumor_scores.png" alt="Tumour Scores" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <img src="figures/gene%20signature/01_tumor_scores.png" alt="Tumour Scores" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="fig-placeholder" style="display:none;">
             <div class="fig-placeholder-icon">🔬</div>
             <div class="fig-placeholder-text">Tumour subtype scores on tissue<br>Luminal A · HER2 · Basal-like · Proliferating</div>
-            <div class="fig-placeholder-file">figures/gene_signature/01_tumor_scores.png</div>
+            <div class="fig-placeholder-file">figures/gene signature/01_tumor_scores.png</div>
           </div>
         </div>
         <div class="fig-meta">
-          <div class="fig-label">Figure NB05.4 — PAM50 Subtype Scores</div>
-          <div class="fig-caption">Luminal A score concentrated in the ER+ Invasive Carcinoma cluster. HER2-enriched and Basal-like essentially absent. Confirms ER+ Luminal A molecular subtype spatially.</div>
+          <div class="fig-label">Figure NB05.4 — Tumour Compartment Scores</div>
+          <div class="fig-caption">Tumour compartment scores on tissue. Luminal A enriched in ER+ carcinoma regions. HER2-enriched and Basal-like essentially absent.</div>
         </div>
       </div>
       <div class="fig-wrapper">
         <div class="fig-img-slot" style="min-height:260px;">
-          <img src="figures/gene_signature/03_stroma_scores.png" alt="Stroma Scores" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <img src="figures/gene%20signature/03_stroma_scores.png" alt="Stroma Scores" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="fig-placeholder" style="display:none;">
             <div class="fig-placeholder-icon">🧱</div>
             <div class="fig-placeholder-text">Stromal cell scores on tissue<br>CAFs · Myofibroblasts · Endothelial · Adipocytes</div>
-            <div class="fig-placeholder-file">figures/gene_signature/03_stroma_scores.png</div>
+            <div class="fig-placeholder-file">figures/gene signature/03_stroma_scores.png</div>
           </div>
         </div>
         <div class="fig-meta">
@@ -804,31 +804,31 @@ section:first-of-type{border-top:none;}
       <div class="stat-block"><div class="sb-num" style="color:var(--teal)">39</div><div class="sb-lbl">LR Pairs Tested</div></div>
       <div class="stat-block"><div class="sb-num" style="color:var(--navy)">8</div><div class="sb-lbl">TME Pathways</div></div>
       <div class="stat-block"><div class="sb-num" style="color:var(--rust)">500</div><div class="sb-lbl">Permutations (sq.gr.ligrec)</div></div>
-      <div class="stat-block"><div class="sb-num" style="color:var(--plum)">1.069</div><div class="sb-lbl">FN1→ITGB1 (top LR score)</div></div>
+      <div class="stat-block"><div class="sb-num" style="color:var(--plum)">0.98</div><div class="sb-lbl">FN1→ITGB1 (top LR score)</div></div>
     </div>
 
     <!-- Dual barrier explanation -->
     <div class="g2 reveal" style="margin-bottom:28px;">
       <div class="card" style="border-left:3px solid var(--rust);">
-        <div class="card-num" style="color:var(--rust);">🔒 Lock 1 — Immune Checkpoint</div>
-        <div class="card-title">PD-L1 → PD-1  (CD274 → PDCD1)</div>
-        <div class="card-body">Tumour cells express PD-L1 (CD274). When it binds PD-1 (PDCD1) on incoming T cells, it functionally inactivates the cytotoxic response. The T cell is physically present at the tumour boundary but cannot fire — it has been switched off at the molecular level. Additional checkpoint pairs: CD80→CTLA4, LAG3→HLA-DRA, TIGIT→PVR.</div>
+        <div class="card-num" style="color:var(--rust);">🔒 Lock 1 — Physical Wall (ECM)</div>
+        <div class="card-title">FN1 → ITGB1 / ITGA5</div>
+        <div class="card-body">Fibronectin (FN1) binds to integrin receptors (ITGB1/ITGA5) to form a dense extracellular matrix mesh. This physically anchors cells and creates a stromal barrier that prevents immune cell migration toward the tumour core. POSTN and COL1A1 reinforce this structural wall.</div>
         <div class="callout rust" style="margin-top:12px;margin-bottom:0;">
-          Clinical implication: PD-1 monotherapy (pembrolizumab) blocks only Lock 1. Response rate in ER+ breast cancer: 5–20%.
+          Top ECM score: FN1→ITGB1 = 0.98 (highest LR pair in the dataset)
         </div>
       </div>
       <div class="card" style="border-left:3px solid var(--navy);">
-        <div class="card-num" style="color:var(--navy);">🔒 Lock 2 — TGF-β Stromal Barrier</div>
-        <div class="card-title">TGFβ1 → TGFBR1 / TGFBR2</div>
-        <div class="card-body">Cancer-associated fibroblasts secrete TGF-β1, which stiffens and thickens the extracellular matrix via integrin signalling (FN1→ITGB1 scored 1.069 — the highest LR pair in the entire dataset). This physically blocks T cell migration toward the tumour. The T cell wants to fight but cannot migrate through the hardened stromal wall.</div>
+        <div class="card-num" style="color:var(--navy);">🔒 Lock 2 — Chemical Shield (Checkpoint)</div>
+        <div class="card-title">LAG3 → MHC-II + PD-L1 → PD-1</div>
+        <div class="card-body">LAG3 binds to MHC-II (on Macrophages/APCs) to exhaust T-cells at the tumour boundary. PD-L1/PD-1 provides additional checkpoint inhibition. The immune system is recruited but chemically silenced at the same location — the Macrophage-rich boundary cluster.</div>
         <div class="callout navy" style="margin-top:12px;margin-bottom:0;">
-          Clinical implication: Anti-PD-1 reactivates T cells but TGF-β (Lock 2) still prevents migration. Both locks need simultaneous targeting.
+          Checkpoint score at boundary: LAG3→MHC-II = 0.50
         </div>
       </div>
     </div>
 
     <div class="callout plum reveal">
-      <strong>Why both locks are simultaneously active:</strong> The pathway heatmap shows both Immune Checkpoint and TGF-β/Stroma pathways scoring at maximum (1.00) in the same boundary cluster (Mixed Tumour-Stroma). PD-L1 switches T cells off functionally. TGF-β/ECM prevents their migration physically. This is exactly why combination anti-PD-1 + TGF-β inhibitor therapy is being tested in Phase II trials (NCT04656535) — monotherapy against either lock alone is insufficient.
+      <strong>Why both locks are simultaneously active:</strong> The pathway heatmap shows both ECM/Adhesion and Immune Checkpoint pathways scoring at maximum in the same boundary cluster. The Physical Wall prevents migration. The Chemical Shield prevents activation. This dual mechanism explains why monotherapy against either lock alone is insufficient.
     </div>
 
     <div class="g2 reveal" style="margin-top:28px;">
@@ -843,21 +843,21 @@ section:first-of-type{border-top:none;}
         </div>
         <div class="fig-meta">
           <div class="fig-label">Figure NB06.1 — Pathway Activity Heatmap</div>
-          <div class="fig-caption">Normalised mean pathway activity per cluster across 8 TME signalling pathways. Immune Checkpoint and TGF-β both score 1.00 in the Mixed Tumour-Stroma cluster — confirming dual barrier simultaneous activation. This is the central finding figure of the project.</div>
+          <div class="fig-caption">Normalised mean pathway activity per cluster across 8 TME signalling pathways. Immune Checkpoint, ECM/Adhesion, and TGF-β all score 1.00 in the Macrophages/APC cluster — confirming dual barrier simultaneous activation.</div>
         </div>
       </div>
       <div class="fig-wrapper">
         <div class="fig-img-slot" style="min-height:320px;">
-          <img src="figures/cellcomm/03_checkpoint_spatial.png" alt="Checkpoint Spatial" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <img src="figures/cellcomm/_03_checkpoint_spatial.png" alt="Checkpoint Spatial" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="fig-placeholder" style="display:none;">
             <div class="fig-placeholder-icon">🗺️</div>
             <div class="fig-placeholder-text">Checkpoint Axis Spatial Map on Tissue<br>PD-L1/PD-1 · CD80/CTLA4 · LAG3/MHC-II</div>
-            <div class="fig-placeholder-file">figures/cellcomm/03_checkpoint_spatial.png</div>
+            <div class="fig-placeholder-file">figures/cellcomm/_03_checkpoint_spatial.png</div>
           </div>
         </div>
         <div class="fig-meta">
           <div class="fig-label">Figure NB06.2 — Checkpoint Spatial Map</div>
-          <div class="fig-caption">PD-L1→PD-1, CD80→CTLA4, and LAG3→HLA-DRA spatially mapped on tissue. Checkpoint signalling concentrates at the tumour boundary, where immune cells and tumour cells are in contact — the precise location of immune exclusion.</div>
+          <div class="fig-caption">Checkpoint ligand-receptor interactions spatially mapped on tissue. LAG3→MHC-II and other checkpoint signals concentrate at the tumour boundary, where immune cells and tumour cells are in contact.</div>
         </div>
       </div>
     </div>
@@ -872,29 +872,32 @@ section:first-of-type{border-top:none;}
     <div class="g2 reveal" style="margin-top:24px;">
       <div class="fig-wrapper">
         <div class="fig-img-slot" style="min-height:280px;">
-          <img src="figures/cellcomm/06_ligrec_tumor.png" alt="Ligrec Plot" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <img src="figures/cellcomm/_06_ligrec_tumor.png" alt="Ligrec Plot" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="fig-placeholder" style="display:none;">
             <div class="fig-placeholder-icon">💬</div>
             <div class="fig-placeholder-text">Squidpy Ligrec Plot — source: ER+ Invasive Carcinoma<br>500-permutation validated interactions</div>
-            <div class="fig-placeholder-file">figures/cellcomm/06_ligrec_tumor.png</div>
+            <div class="fig-placeholder-file">figures/cellcomm/_06_ligrec_tumor.png</div>
           </div>
         </div>
         <div class="fig-meta">
           <div class="fig-label">Figure NB06.3 — Ligrec Permutation Results</div>
-          <div class="fig-caption">Statistically significant LR interactions (500 permutations, p &lt; 0.001) with ER+ Invasive Carcinoma as source cluster. Dot size = mean expression. Colour = p-value significance. Validates that LR interactions are not random co-expression.</div>
+          <div class="fig-caption">Statistically significant LR interactions (500 permutations, p &lt; 0.001) with ER+ Invasive Carcinoma as source cluster. Dot size = mean expression. Colour = p-value significance.</div>
         </div>
       </div>
       <div>
         <div class="callout amber">
-          <strong>LR scoring methodology:</strong> Geometric mean of ligand × receptor expression per spot — √(L × R). This returns zero if either partner is absent, which is biologically correct: a ligand without its receptor cannot signal. Arithmetic mean would give non-zero scores even when one partner is completely absent, inflating false interactions. Each LR score then averaged per cluster for pathway-level analysis.
+          <strong>LR scoring methodology:</strong> Geometric mean of ligand × receptor expression per spot — √(L × R). This returns zero if either partner is absent, which is biologically correct: a ligand without its receptor cannot signal.
         </div>
         <table class="data-table" style="margin-top:20px;">
           <thead><tr><th>Pathway</th><th>Top LR Pair</th><th>Peak Score</th></tr></thead>
           <tbody>
-            <tr><td>ECM / Adhesion</td><td>FN1 → ITGB1</td><td style="color:var(--teal);font-weight:500;">1.069</td></tr>
-            <tr><td>Antigen Presentation</td><td>HLA-DRA → CD4</td><td>0.880</td></tr>
-            <tr><td>Immune Checkpoint</td><td>LAG3 → HLA-DRA</td><td>0.445</td></tr>
-            <tr><td>TGF-β</td><td>TGFβ1 → TGFBR1</td><td>0.058</td></tr>
+            <tr><td>ECM / Adhesion</td><td>FN1 → ITGB1</td><td style="color:var(--teal);font-weight:500;">0.98</td></tr>
+            <tr><td>Antigen Presentation</td><td>HLA-DRA → CD4</td><td>0.34</td></tr>
+            <tr><td>ECM / Adhesion</td><td>FN1 → ITGA5</td><td>0.32</td></tr>
+            <tr><td>ECM / Adhesion</td><td>POSTN → ITGAV</td><td>0.26</td></tr>
+            <tr><td>Checkpoint</td><td>LAG3 → MHC-II</td><td>0.50</td></tr>
+            <tr><td>Checkpoint</td><td>PD-L1 → PD-1</td><td>0.01</td></tr>
+            <tr><td>TGF-β</td><td>TGFβ1 → TGFBR2</td><td>0.22</td></tr>
             <tr><td>TLS / Immune Recruit</td><td>CXCL13 → CXCR5</td><td>confirmed</td></tr>
           </tbody>
         </table>
@@ -908,59 +911,58 @@ section:first-of-type{border-top:none;}
   <div class="container">
     <div class="sec-eyebrow">NB07 · Advanced Analysis</div>
     <h2 class="sec-title reveal">PAM50 Subtyping, PROGENy Pathways<br><em>&amp; Cross-Validation</em></h2>
-    <p class="sec-desc reveal">Independent validation of the molecular subtype and dual barrier findings using two additional analytical frameworks — each using completely different gene sets and methods from NB05 and NB06.</p>
+    <p class="sec-desc reveal">Independent validation of the molecular subtype and barrier findings using two additional analytical frameworks — each using completely different gene sets and methods from NB05 and NB06.</p>
 
     <div class="g2 reveal">
       <div>
         <h3 style="font-family:'Libre Baskerville',serif;font-size:1.1rem;margin-bottom:14px;">PAM50 Molecular Subtype Scoring</h3>
         <p style="font-size:.9rem;color:var(--ink2);line-height:1.8;margin-bottom:16px;">The clinically validated 50-gene classifier used in oncology worldwide. Scored per Visium spot, then compared across clusters. Confirms ER+ Luminal A as the dominant subtype in the GATA3+ carcinoma cluster.</p>
         <table class="data-table">
-          <thead><tr><th>Subtype</th><th>Score (ER+ Carcinoma)</th><th>Interpretation</th></tr></thead>
+          <thead><tr><th>Subtype</th><th>Spots</th><th>Interpretation</th></tr></thead>
           <tbody>
-            <tr style="background:var(--teal-lt)"><td><strong style="color:var(--teal)">Luminal A</strong></td><td><strong style="color:var(--teal)">1.00 ✓</strong></td><td>Confirmed dominant subtype</td></tr>
-            <tr><td>Luminal B</td><td>0.54</td><td>Secondary signal</td></tr>
-            <tr><td>HER2-enriched</td><td>0.05</td><td>Essentially absent — not HER2+ ✓</td></tr>
-            <tr><td>Basal-like</td><td>0.12</td><td>Essentially absent ✓</td></tr>
-            <tr><td>Normal-like</td><td>0.08</td><td>Adipose region only</td></tr>
+            <tr style="background:var(--teal-lt)"><td><strong style="color:var(--teal)">Luminal A</strong></td><td><strong style="color:var(--teal)">2,815</strong></td><td>Dominant — ER+/PR+ with low proliferation</td></tr>
+            <tr><td>Normal-like</td><td>672</td><td>Stromal regions</td></tr>
+            <tr><td>Basal-like</td><td>493</td><td>Minor population</td></tr>
+            <tr><td>Luminal B</td><td>468</td><td>Higher proliferation</td></tr>
+            <tr><td>HER2-enriched</td><td>421</td><td>HER2+ signaling present</td></tr>
           </tbody>
         </table>
         <div class="callout teal" style="margin-top:16px;">
-          Luminal A = 1.00 in the ER+ Invasive Carcinoma cluster confirms ER+ breast cancer subtype. Clinical implication: hormone therapy (tamoxifen / aromatase inhibitors) is the primary indicated treatment — not HER2-targeted therapy or aggressive chemotherapy.
+          Luminal A dominant (2,815 spots, 58%) confirms ER+ breast cancer subtype. Clinical implication: hormone therapy (tamoxifen / aromatase inhibitors) is the primary indicated treatment.
         </div>
 
         <div class="fig-wrapper" style="margin-top:20px;">
           <div class="fig-img-slot" style="min-height:240px;">
-            <img src="figures/advanced/01_PAM50_scores.png" alt="PAM50 Scores" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <img src="figures/advanced/_01_PAM50_scores.png" alt="PAM50 Scores" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
             <div class="fig-placeholder" style="display:none;">
               <div class="fig-placeholder-icon">🧬</div>
               <div class="fig-placeholder-text">PAM50 subtype scores on tissue<br>Luminal A · Luminal B · HER2 · Basal · Normal</div>
-              <div class="fig-placeholder-file">figures/advanced/01_PAM50_scores.png</div>
+              <div class="fig-placeholder-file">figures/advanced/_01_PAM50_scores.png</div>
             </div>
           </div>
           <div class="fig-meta">
             <div class="fig-label">Figure NB07.1 — PAM50 Spatial Scores</div>
-            <div class="fig-caption">PAM50 subtype scores spatially mapped. Luminal A enriched in carcinoma cluster. HER2-enriched and Basal-like essentially absent throughout tissue — confirming ER+ Luminal A subtype.</div>
+            <div class="fig-caption">PAM50 subtype scores spatially mapped. Luminal A enriched in carcinoma cluster. HER2-enriched and Basal-like present at lower levels.</div>
           </div>
         </div>
       </div>
 
       <div>
         <h3 style="font-family:'Libre Baskerville',serif;font-size:1.1rem;margin-bottom:14px;">PROGENy Pathway Activity</h3>
-        <p style="font-size:.9rem;color:var(--ink2);line-height:1.8;margin-bottom:16px;">PROGENy uses downstream target gene footprints rather than pathway component expression. More reliable for detecting activated signalling — a pathway can be active even if the receptor is lowly expressed if its downstream targets are strongly induced.</p>
+        <p style="font-size:.9rem;color:var(--ink2);line-height:1.8;margin-bottom:16px;">PROGENy uses downstream target gene footprints rather than pathway component expression. More reliable for detecting activated signalling.</p>
         <table class="data-table">
           <thead><tr><th>Pathway</th><th>Peak Activity</th><th>Peak Cluster</th></tr></thead>
           <tbody>
-            <tr><td><strong>TGF-β</strong></td><td style="color:var(--rust);font-weight:500;">0.92 ★</td><td>Stromal Barrier (MGP+)</td></tr>
-            <tr><td><strong>Hypoxia</strong></td><td>0.88</td><td>Proliferating Tumour</td></tr>
-            <tr><td>EGFR</td><td>0.76</td><td>ER+ Invasive Carcinoma</td></tr>
-            <tr><td>PI3K</td><td>0.71</td><td>Tumour clusters</td></tr>
-            <tr><td>TNFα</td><td>0.65</td><td>Macrophage cluster</td></tr>
-            <tr><td>JAK-STAT</td><td>0.60</td><td>Immune clusters</td></tr>
-            <tr><td>WNT</td><td>0.52</td><td>Mixed Tumour-Stroma</td></tr>
+            <tr><td><strong>Immune Checkpoint</strong></td><td style="color:var(--rust);font-weight:500;">1.00</td><td>Macrophages / APC</td></tr>
+            <tr><td><strong>TGF-β / Stroma</strong></td><td style="color:var(--rust);font-weight:500;">1.00</td><td>Macrophages / APC</td></tr>
+            <tr><td><strong>Angiogenesis</strong></td><td style="color:var(--rust);font-weight:500;">1.00</td><td>CXCL14+ Tumour-Stroma</td></tr>
+            <tr><td><strong>Immune Recruitment</strong></td><td style="color:var(--rust);font-weight:500;">1.00</td><td>Macrophages / APC</td></tr>
+            <tr><td>ECM / Adhesion</td><td>1.00</td><td>CXCL14+ Tumour-Stroma</td></tr>
+            <tr><td>Growth Factor</td><td>1.00</td><td>Proliferating Luminal Tumour</td></tr>
           </tbody>
         </table>
         <div class="callout rust" style="margin-top:16px;">
-          <strong>Cross-validation:</strong> PROGENy TGF-β peaks in the Stromal Barrier cluster — completely independently confirming the TGF-β barrier finding from NB06 ligand-receptor analysis. Two different methods, different gene sets, same biological conclusion.
+          <strong>Cross-validation:</strong> PROGENy shows Immune Checkpoint and TGF-β/Stroma both peaking at 1.00 in the Macrophages/APC cluster — independently confirming the dual barrier findings from NB06 via a completely separate analytical approach.
         </div>
 
         <div class="fig-wrapper" style="margin-top:20px;">
@@ -974,7 +976,7 @@ section:first-of-type{border-top:none;}
           </div>
           <div class="fig-meta">
             <div class="fig-label">Figure NB07.2 — PROGENy Pathway Activity</div>
-            <div class="fig-caption">PROGENy pathway activity per cluster. TGF-β peaks in Stromal Barrier — independently cross-validating the LR communication dual barrier finding from NB06 via a completely separate analytical approach.</div>
+            <div class="fig-caption">PROGENy pathway activity per cluster. Immune Checkpoint and TGF-β both peak in Macrophages/APC — independently cross-validating the dual barrier finding.</div>
           </div>
         </div>
       </div>
@@ -993,10 +995,10 @@ section:first-of-type{border-top:none;}
       <div class="fc-num">1</div>
       <div>
         <div class="fc-title">Tertiary Lymphoid Structure Detected — Three Independent Confirmations</div>
-        <div class="fc-body">A Tertiary Lymphoid Structure (TLS) — an organised lymph node equivalent forming inside the tumour — was detected by three completely independent methods, all pointing to the same upper-left perivascular tissue zone. TLS presence in breast cancer is associated with 3–5× improved patient survival. This is not a subtle signal — immunoglobulins IGLC2, IGHG3, and IGKC are the 2nd, 4th, and 6th most spatially concentrated genes in the entire dataset.</div>
+        <div class="fc-body">A Tertiary Lymphoid Structure (TLS) — an organised lymph node equivalent forming inside the tumour — was detected by three completely independent methods, all pointing to the same upper-left perivascular tissue zone. TLS presence in breast cancer is associated with improved patient survival. This is not a subtle signal — immunoglobulins IGLC2, IGHG3, and IGKC are the 2nd, 4th, and 6th most spatially concentrated genes in the entire dataset.</div>
         <div class="fc-evidence">
           Method 1: Moran's I — IGLC2 (I=0.815), IGHG3 (I=0.793), IGKC (I=0.773) — ranks 2, 4, 6 of 3,000 genes | all plasma cell immunoglobulins | FDR=0.0126 | 100 permutations<br>
-          Method 2: Cell scoring — Plasma cell score peaks at 20.9 (5× any other immune type) | B cells co-enriched same zone | TLS signature confirmed<br>
+          Method 2: Cell scoring — Plasma cell score peaks at 2.34 (highest immune signature) | B cells co-enriched same zone | TLS signature confirmed<br>
           Method 3: LR communication — CXCL13→CXCR5 confirmed (500 perms, p&lt;0.001) | CXCL13 = the canonical TLS-building chemokine
         </div>
       </div>
@@ -1006,12 +1008,12 @@ section:first-of-type{border-top:none;}
       <div class="fc-num">2</div>
       <div>
         <div class="fc-title">Dual Immunosuppressive Barrier Identified — The Mechanism of Immune Exclusion</div>
-        <div class="fc-body">Two molecular locks simultaneously block immune cell entry into the tumour. Lock 1: PD-L1/PD-1 checkpoint switches T cells off functionally. Lock 2: TGF-β/ECM stiffens the stroma and physically prevents T cell migration. Both are maximally active simultaneously at the Mixed Tumour-Stroma boundary. Every cytotoxic immune cell type scores zero in the ER+ Invasive Carcinoma cluster. This is not partial exclusion — it is categorical.</div>
+        <div class="fc-body">Two molecular locks simultaneously block immune cell entry into the tumour. Lock 1: ECM/Adhesion (FN1→ITGB1, score=0.98) creates a physical stromal wall. Lock 2: Checkpoint (LAG3→MHC-II, score=0.50) chemically exhausts T-cells. Both are maximally active simultaneously at the Macrophages/APC boundary. Every cytotoxic immune cell type scores zero in the ER+ Invasive Carcinoma cluster.</div>
         <div class="fc-evidence">
-          Lock 1: PD-L1→PD-1 (CD274→PDCD1) + CD80→CTLA4 + LAG3→HLA-DRA | Immune Checkpoint pathway score = 1.00 at tumour boundary<br>
-          Lock 2: TGFβ1→TGFBR1/TGFBR2 | FN1→ITGB1 score=1.069 (highest LR pair) | TGF-β pathway score = 1.00 simultaneously<br>
-          Cross-validation: PROGENy TGF-β peaks in Stromal Barrier cluster (0.92) independently confirming Lock 2<br>
-          Clinical: Explains 5–20% PD-1 monotherapy response rate in ER+ breast cancer. Supports combination anti-PD-1 + TGF-β inhibitor (Phase II NCT04656535)
+          Physical Wall: FN1→ITGB1 (0.98), FN1→ITGA5 (0.32), POSTN→ITGAV (0.26) | ECM pathway score = 1.00<br>
+          Chemical Shield: LAG3→MHC-II (0.50), PD-L1→PD-1 (0.01), TGFβ1→TGFBR2 (0.22) | Checkpoint pathway score = 1.00<br>
+          Cross-validation: PROGENy TGF-β peaks in Macrophages/APC cluster (1.00) independently confirming Lock 1<br>
+          Clinical: Explains poor PD-1 monotherapy response in ER+ breast cancer. Supports combination therapy.
         </div>
       </div>
     </div>
@@ -1020,11 +1022,11 @@ section:first-of-type{border-top:none;}
       <div class="fc-num">3</div>
       <div>
         <div class="fc-title">ER+ Luminal A Subtype Confirmed Spatially — Cross-Validated by Two Independent Methods</div>
-        <div class="fc-body">The ER+ Luminal A molecular subtype was confirmed spatially using PAM50 gene signature scoring (Luminal A = 1.00 in the GATA3+ Invasive Carcinoma cluster) and independently cross-validated by PROGENy pathway footprint analysis. HER2-enriched and Basal-like subtypes are essentially absent throughout the tissue. The GATA3 master transcription factor — the gold-standard ER+ luminal marker — is the top marker for cluster C6.</div>
+        <div class="fc-body">The ER+ Luminal A molecular subtype was confirmed spatially using PAM50 gene signature scoring (Luminal A = 2,815 spots, 58%) and independently cross-validated by PROGENy pathway footprint analysis. HER2-enriched (421 spots) and Basal-like (493 spots) are present at lower levels. The GATA3 master transcription factor is the top marker for cluster C6.</div>
         <div class="fc-evidence">
-          PAM50: Luminal A = 1.00 in ER+ Invasive Carcinoma (C6) | HER2-enriched = 0.05 | Basal-like = 0.12 | Both essentially absent<br>
+          PAM50: Luminal A dominant (2,815 spots, 58%) | HER2-enriched = 421 spots | Basal-like = 493 spots<br>
           Cluster markers: SLC39A6, TMEM150C, TNFSF10, BAMBI — all consistent with ER+ luminal programme<br>
-          Clinical: Hormone therapy (tamoxifen/aromatase inhibitors) indicated. Explains poor immunotherapy response — ER+ Luminal A is the subtype least responsive to immune checkpoint blockade.
+          Clinical: Hormone therapy (tamoxifen/aromatase inhibitors) indicated. Explains poor immunotherapy response.
         </div>
       </div>
     </div>
@@ -1050,7 +1052,7 @@ section:first-of-type{border-top:none;}
       <div class="card" style="border-top:3px solid var(--plum);">
         <div class="card-num" style="color:var(--plum)">Step 4</div>
         <div class="card-title">Dual Barrier Blocks Entry</div>
-        <div class="card-body" style="font-size:.84rem;">PD-L1 switches T cells off. TGF-β wall blocks migration. Both locks simultaneously active. Immune exclusion complete — despite TLS formation.</div>
+        <div class="card-body" style="font-size:.84rem;">FN1/ITGB1 wall blocks migration. LAG3/MHC-II exhausts T-cells. Both locks simultaneously active. Immune exclusion complete — despite TLS formation.</div>
       </div>
     </div>
   </div>
@@ -1069,8 +1071,8 @@ section:first-of-type{border-top:none;}
         <div class="card-body" style="font-size:.87rem;line-height:1.9;">
           <strong style="color:var(--ink);">Single patient:</strong> Findings require multi-patient cohort validation before generalisation to the ER+ Luminal A population.<br><br>
           <strong style="color:var(--ink);">55 µm resolution:</strong> Each spot captures ~8 cells. Cell types inferred from signatures, not directly observed at single-cell level.<br><br>
-          <strong style="color:var(--ink);">Signature scoring ≠ deconvolution:</strong> sc.tl.score_genes gives relative enrichment, not absolute cell counts. Cell2Location planned as next step.<br><br>
-          <strong style="color:var(--ink);">Correlation ≠ causation:</strong> LR co-expression suggests signalling. Functional validation (knockout, inhibitor assays) required to confirm.
+          <strong style="color:var(--ink);">Signature scoring ≠ deconvolution:</strong> sc.tl.score_genes gives relative enrichment, not absolute cell counts.<br><br>
+          <strong style="color:var(--ink);">Correlation ≠ causation:</strong> LR co-expression suggests signalling. Functional validation required.
         </div>
       </div>
       <div style="display:flex;flex-direction:column;gap:16px;">
@@ -1080,7 +1082,7 @@ section:first-of-type{border-top:none;}
             4,869 spots analysed<br>
             21,349 genes measured<br>
             11 TME domains identified<br>
-            2,498 spatially variable genes<br>
+            2,493 spatially variable genes<br>
             24 cell type signatures scored<br>
             39 LR pairs · 8 pathways<br>
             500 permutations (ligrec)<br>
@@ -1091,7 +1093,7 @@ section:first-of-type{border-top:none;}
           <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;font-weight:500;">3 Key Findings</div>
           <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink2);line-height:2.1;">
             TLS detected — 3 independent methods ✓<br>
-            Dual barrier mapped — PD-L1 + TGF-β ✓<br>
+            Dual barrier mapped — ECM + Checkpoint ✓<br>
             ER+ Luminal A confirmed spatially ✓
           </div>
         </div>
@@ -1102,37 +1104,37 @@ section:first-of-type{border-top:none;}
       <div class="card">
         <div class="card-num">01 — Near-term</div>
         <div class="card-title">Cell2Location Deconvolution</div>
-        <div class="card-body">Replace signature scoring with probabilistic cell type deconvolution using the Wu et al. 2021 scRNA-seq reference atlas — producing absolute cell counts per spot rather than relative enrichment scores. Essential for quantifying TLS cellular composition precisely.</div>
+        <div class="card-body">Replace signature scoring with probabilistic cell type deconvolution using the Wu et al. 2021 scRNA-seq reference atlas — producing absolute cell counts per spot rather than relative enrichment scores.</div>
         <div class="tags"><span class="tag">Cell2Location</span><span class="tag">scVI</span><span class="tag">Wu 2021 atlas</span></div>
       </div>
       <div class="card">
         <div class="card-num">02 — Near-term</div>
         <div class="card-title">Multi-Patient Validation Cohort</div>
-        <div class="card-body">Apply pipeline to 10+ ER+ IDC patients with Harmony batch correction. Test whether the Dual Barrier Score predicts immunotherapy non-response across patients. Validate TLS spatial score as a survival predictor against TCGA-BRCA outcomes.</div>
+        <div class="card-body">Apply pipeline to 10+ ER+ IDC patients with Harmony batch correction. Test whether the Dual Barrier Score predicts immunotherapy non-response across patients.</div>
         <div class="tags"><span class="tag">Harmony</span><span class="tag">TCGA-BRCA</span><span class="tag">10+ patients</span></div>
       </div>
       <div class="card">
         <div class="card-num">03 — Mid-term</div>
         <div class="card-title">Sub-cellular Resolution — Xenium / Visium HD</div>
-        <div class="card-body">Upgrade to 10x Xenium (subcellular) or Visium HD (2 µm resolution) to resolve TLS internal architecture: germinal centres, follicular B cells, and high endothelial venules — the spatial hallmarks invisible at 55 µm resolution.</div>
+        <div class="card-body">Upgrade to 10x Xenium (subcellular) or Visium HD (2 µm resolution) to resolve TLS internal architecture: germinal centres, follicular B cells, and high endothelial venules.</div>
         <div class="tags"><span class="tag">Xenium</span><span class="tag">Visium HD</span><span class="tag">2µm resolution</span></div>
       </div>
       <div class="card">
         <div class="card-num">04 — Mid-term</div>
         <div class="card-title">CODEX Multiplexed Protein Imaging</div>
-        <div class="card-body">Validate PD-L1, TGF-β, and immune marker findings at protein level using CODEX multiplexed antibody imaging. Required for clinical translation — drugs target proteins, not transcripts. Confirm the TLS structure histologically.</div>
+        <div class="card-body">Validate PD-L1, TGF-β, and immune marker findings at protein level using CODEX multiplexed antibody imaging. Required for clinical translation — drugs target proteins, not transcripts.</div>
         <div class="tags"><span class="tag">CODEX</span><span class="tag">IMC</span><span class="tag">Protein validation</span></div>
       </div>
       <div class="card">
         <div class="card-num">05 — Mid-term</div>
         <div class="card-title">RNA Velocity — T Cell Exhaustion Dynamics</div>
-        <div class="card-body">Add scVelo trajectory inference to map T cell exhaustion dynamics across the spatial gradient from TLS toward the tumour boundary. Identify the exhaustion onset point — the optimal window for checkpoint blockade intervention.</div>
+        <div class="card-body">Add scVelo trajectory inference to map T cell exhaustion dynamics across the spatial gradient from TLS toward the tumour boundary.</div>
         <div class="tags"><span class="tag">scVelo</span><span class="tag">Monocle3</span><span class="tag">Trajectory</span></div>
       </div>
       <div class="card">
         <div class="card-num">06 — Long-term</div>
         <div class="card-title">Graph Neural Networks &amp; Foundation Models</div>
-        <div class="card-body">Apply STAGATE or GraphST for joint embeddings of gene expression and tissue morphology. Use scGPT or Geneformer for zero-shot cell type annotation. Build interactive spatial browser with Vitessce for open-access data exploration.</div>
+        <div class="card-body">Apply STAGATE or GraphST for joint embeddings of gene expression and tissue morphology. Use scGPT or Geneformer for zero-shot cell type annotation.</div>
         <div class="tags"><span class="tag">STAGATE</span><span class="tag">scGPT</span><span class="tag">Vitessce</span></div>
       </div>
     </div>
